@@ -1,4 +1,6 @@
 module.exports = {
+  setupFilesAfterEnv : 'troubleticket/tests/unit/jest-setup.js',
+
   moduleFileExtensions: [
     'js',
     'jsx',

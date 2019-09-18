@@ -1,4 +1,4 @@
-  
+
 <template>
   <v-app id="keep">
     <v-app-bar
@@ -7,7 +7,7 @@
       color="amber"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <span class="title ml-3 mr-5">Google&nbsp;<span class="font-weight-light">Keep</span></span>
+      <span class="title ml-3 mr-5">Trouble&nbsp;<span class="font-weight-light">Ticket</span></span>
       <v-text-field
         solo-inverted
         flat
@@ -29,28 +29,8 @@
         class="grey lighten-4"
       >
         <template v-for="(item, i) in items">
-          <v-row
-            v-if="item.heading"
-            :key="i"
-            align="center"
-          >
-            <v-col cols="6">
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-col>
-            <v-col
-              cols="6"
-              class="text-right"
-            >
-              <v-btn
-                small
-                text
-              >edit</v-btn>
-            </v-col>
-          </v-row>
           <v-divider
-            v-else-if="item.divider"
+            v-if="item.divider"
             :key="i"
             dark
             class="my-4"
@@ -60,6 +40,7 @@
             :key="i"
             @click=""
           >
+            <router-link :to="item.link">
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -68,6 +49,7 @@
                 {{ item.text }}
               </v-list-item-title>
             </v-list-item-content>
+            </router-link>
           </v-list-item>
         </template>
       </v-list>
@@ -78,47 +60,16 @@
         fluid
         class="grey lighten-4 fill-height"
       >
-        <v-row
-          justify="center"
-          align="center"
-        >
-          <v-col class="shrink">
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/zgxbYO"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-codepen</v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
-          </v-col>
-        </v-row>
+        <router-view></router-view>
+
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
+
+
   export default {
     props: {
       source: String,
@@ -126,10 +77,9 @@
     data: () => ({
       drawer: null,
       items: [
-        { icon: 'lightbulb_outline', text: 'Notes' },
-        { icon: 'touch_app', text: 'Reminders' },
+        { icon: 'lightbulb_outline', text: 'Notes' , link : '/feed'},
+        { icon: 'touch_app', text: 'Reminders', link : '/'},
         { divider: true },
-        { heading: 'Labels' },
         { icon: 'add', text: 'Create new label' },
         { divider: true },
         { icon: 'archive', text: 'Archive' },
